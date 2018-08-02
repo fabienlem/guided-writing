@@ -1,0 +1,80 @@
+<!doctype html>
+<!-- seeing behind the scenes does not change the nature of reality -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>guided writing</title>
+  <link href="https://fonts.googleapis.com/css?family=Anonymous+Pro" rel="stylesheet">
+  <style>
+    body {font-family: 'Anonymous Pro', monospace; margin: 0; padding: 30px 40px;}
+    .tip {font-size: 2rem; margin: 0; color: #665C49;}
+    .key {width: 20vw; height: 26vw; padding-right: 4vw; text-align: right; border: 2vw solid #ddd; border-radius: 1vw; font-size: 25vw; color: #807462; cursor: pointer; user-select: none;}
+    .input {font-size: 2.5rem; color: #222;}
+  </style>
+  </head>
+  <body>
+
+    <p class="tip">Press:</p>
+    <div class="key">.</div>
+    <p class="input"><p>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>
+      var x, y;
+      var sentences = [
+        "while you're producing, you're not living",
+        "it's easier when you're told what to do",
+        'everything you make will be thrown anyway',
+        'raw materials are burned as you complete this sentence',
+        'repeating things is the key to lose yourself',
+        'machine and human controlling themselves, right now',
+        'you obey and then your mind is infected',
+      ];
+    
+      function random(max) {
+        return Math.floor(Math.random() * Math.floor(max));
+      }
+      function init() {
+        x = random(sentences.length);
+        y = 0;
+        $('.input').html('').css('text-decoration', 'none');
+        $('.key').html(sentences[x].charAt(y));
+      }
+      function input(char) {
+        $('.input').append('<span>' + char + '</span>');
+      }
+      function type(typed) {
+        var char = sentences[x].charAt(y);
+        if (typed === char) {
+          console.log('the user is still under control');
+          input(char);
+          if (sentences[x].length === y + 1) {
+            $('.key').html('ø');
+            $('.input').css('text-decoration', 'underline');
+            setTimeout('init();', 5000);
+          } else {
+            while (true) {
+              var nextChar = sentences[x].charAt(++y);
+              if (nextChar.match(/[a-z]/i)) {
+                $('.key').html(nextChar);
+                break;
+              } else {
+                input(nextChar);
+              }
+            }
+          }
+        }
+      }
+      $(function() {
+        init();
+        $('body').on('keypress', function(event) {
+          type(String.fromCharCode(event.which));
+        });
+        $('.key').on('click', function() {
+          type($(this).html());
+        });
+      });
+    </script>
+  </body>
+</html>
