@@ -11,6 +11,10 @@
     .tip {font-size: 2rem; margin: 0; color: #665C49;}
     .key {width: 20vw; height: 26vw; padding-right: 4vw; text-align: right; border: 2vw solid #ddd; border-radius: 1vw; font-size: 25vw; color: #807462; cursor: pointer; user-select: none;}
     .input {font-size: 2.5rem; color: #222;}
+    body.night {background: #222;}
+    .night .tip {color: #bdc7c1;}
+    .night .key {color: #e2d6cA; border-color: #7e8889;}
+    .night .input {color: #f8f8e2;}
   </style>
   </head>
   <body>
@@ -32,9 +36,17 @@
       function random(max) {
         return Math.floor(Math.random() * Math.floor(max));
       }
+      function night() {
+        var d = new Date();
+        var n = d.getHours();
+        if (n <= 7 || n >= 22) {
+          $('body').addClass('night');
+        }
+      }
       function init() {
         x = random(sentences.length);
         y = 0;
+        night();
         $('.input').html('').css('text-decoration', 'none');
         $('.key').html(sentences[x].charAt(y));
       }
